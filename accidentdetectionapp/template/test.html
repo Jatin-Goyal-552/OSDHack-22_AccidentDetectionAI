@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Sample Project</title>
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+</head>
+<body>
+    <!-- <div><h1 id="notification">No new accident</h1></div> -->
+  
+  
+<H1>
+
+Project Name is  road accident detection
+	</H1>
+<br/>
+{% for notification in notifications %}
+<h1>--------------------------------------------------------------------------------------------</h1>
+<p>
+notification : {{ notification.notification }}
+</p>
+<br>
+<p>
+date : {{ notification.accident_date }}
+</p>
+<br>
+<p>
+    lattitude : {{ notification.lattitude }}
+    </p>
+    <br>
+    <p>
+    longitude : {{ notification.longitude }}
+    </p>
+    <br>
+    
+    <p>
+        accepted : {{ notification.accepted }}
+        </p>
+        <br>
+        {% if notification.accepted == 0 %}
+    <a href="{% url 'accept'  notification.n_id %}"><button type="button">Accept</button></a><br>
+    {% else %}
+    <p>Accepted by some hospital</p>
+{% endif %}
+<h1>----------------------------------------------------------------------------------------------------------</h1>
+{% endfor %}
+<script>
+
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('4da6311b184ace45d1dc', {
+      cluster: 'ap2'
+    });
+
+    var channel = pusher.subscribe('my-channel');
+    channel.bind('my-event', function(data) {
+      window.location.reload();
+      //document.getElementById('notification').textContent = JSON.stringify(data['message']);
+
+    });
+  </script>
+</body>
+</html>
