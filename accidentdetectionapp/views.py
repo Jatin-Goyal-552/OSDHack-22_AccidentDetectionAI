@@ -11,7 +11,7 @@ import vonage
 import time
 from .models import *
 from django.shortcuts import redirect
-
+import pusher
 # import firebase_admin
 # from firebase_admin import credentials
 # from firebase_admin import db
@@ -34,6 +34,21 @@ from django.shortcuts import redirect
 global hospital_name
 hospital_name ="Unnamed"
 
+def send_response():
+    pusher_client = pusher.Pusher(
+    app_id='1328110',
+    key='4da6311b184ace45d1dc',
+    secret='469709e6b17fadfab16f',
+    cluster='ap2',
+    ssl=True
+    )
+    # notif = Notifications(notification="accident happened",lattitude=5756,longitude=455,accepted=0)
+    # notif.save()
+    # article.title = 'This is the title'
+    # article.contents = 'This is the content'
+    # article.save()
+    pusher_client.trigger('my-channel', 'my-event', {'message': 'Request Accepted'})
+    return
 
 def home(request):
     return render(request,'index.html')
@@ -104,6 +119,7 @@ def test(request):
 
 def accept(request,id):
     notification = Notifications.objects.filter(n_id=id).update(accepted = 1)
+    send_response()
     return redirect('test')
 
 def register(request):
