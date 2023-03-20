@@ -60,7 +60,7 @@ def gen(camera):
                 b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
 def webcam_feed(request):
-    # print("W1")
+    print("W1")
     return StreamingHttpResponse(gen(streaming()),
 					content_type='multipart/x-mixed-replace; boundary=frame')
 

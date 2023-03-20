@@ -110,11 +110,11 @@ class streaming(object):
     def __init__(self):
         print("hello")
         self.flag=True
-        self.video_capture = cv2.VideoCapture(0)
-        # self.video_capture = cv2.VideoCapture("C:\\Users\\LENOVO\\Downloads\\accident3.mp4")
-        self.model1=torch.hub.load('ultralytics/yolov5', 'custom', path='C:\\Users\\LENOVO\\projects\\Dot_Slash_Road_Safety\\AccidentDetection\\best (2).pt',device='cpu')
-        self.model = torch.hub.load('ultralytics/yolov5', 'custom', path='C:\\Users\\LENOVO\\projects\\Dot_Slash_Road_Safety\\AccidentDetection\\accident2.pt',device='cpu')
-# model1 = torch.hub.load('ultralytics/yolov5', 'custom', path='C:\\Users\\hp\\Desktop\\accident.pt')
+        self.video_capture = cv2.VideoCapture()
+        self.video_capture = cv2.VideoCapture("highway_accident.mp4")
+        self.model1=torch.hub.load('ultralytics/yolov5', 'custom', path='../best.pt',device='cpu')
+        self.model = torch.hub.load('ultralytics/yolov5', 'custom', path='../accident2.pt',device='cpu')
+        model1 = torch.hub.load('ultralytics/yolov5', 'custom', path='../accident.pt')
 
     def get_frame(self):
         ret, frame = self.video_capture.read()
